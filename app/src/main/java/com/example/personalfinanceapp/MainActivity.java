@@ -3,10 +3,10 @@ package com.example.personalfinanceapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.personalfinanceapp.data.TransactionsEntity;
 
@@ -20,12 +20,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView recyclerView = findViewById(R.id.transactionRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        TransactionListAdapter adapter = new TransactionListAdapter();
+        recyclerView.setAdapter(adapter);
+
         controller = new ViewModelProvider(this).get(Controller.class);
         controller.getAllTransactions().observe(this, new Observer<List<TransactionsEntity>>() {
             @Override
             public void onChanged(List<TransactionsEntity> transactionsEntities) {
-                //update data
-                Toast.makeText(MainActivity.this, "changed", Toast.LENGTH_SHORT).show();
+                adapter.setTransactions(transactionsEntities);
             }
         });
     }

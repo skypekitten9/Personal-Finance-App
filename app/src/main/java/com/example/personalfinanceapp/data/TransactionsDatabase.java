@@ -33,9 +33,16 @@ public abstract class TransactionsDatabase extends RoomDatabase {
             super.onCreate(db);
             instance.transactionsDao().insert(new TransactionsEntity(
                     "Victor",
-                    new Long(1618905489),
+                    "2020-02-02",
                     "McDonalds",
-                    200,
+                    -300,
+                    false
+            ));
+            instance.transactionsDao().insert(new TransactionsEntity(
+                    "Roy",
+                    "2019-09-09",
+                    "Coop Mårtenstorget",
+                    -100,
                     false
             ));
         }

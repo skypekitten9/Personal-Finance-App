@@ -13,12 +13,12 @@ public class TransactionsEntity {
     private int id;
 
     private String userName;
-    private Long date;
+    private String date;
     private String title;
     private float amount;
     private boolean income;
 
-    public TransactionsEntity(String userName, Long date, String title, float amount, boolean income) {
+    public TransactionsEntity(String userName, String date, String title, float amount, boolean income) {
         this.userName = userName;
         this.date = date;
         this.title = title;
@@ -36,7 +36,7 @@ public class TransactionsEntity {
         return userName;
     }
 
-    public Long getDate() {
+    public String getDate() {
         return date;
     }
 
