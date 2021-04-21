@@ -21,8 +21,9 @@ public abstract class TransactionsDatabase extends RoomDatabase {
     {
         if (instance == null)
         {
-            instance = Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class, "transactionsDatabase")
+            instance = Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class, "transactions")
                     .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
         }
         return instance;
