@@ -22,22 +22,69 @@ public class Model {
     }
 
     public void insert(TransactionsEntity transaction) {
-        transactionsDao.insert(transaction);
+        new InsertTransactionsAsyncTask(transactionsDao).execute(transaction);
     }
 
     public void update(TransactionsEntity transaction) {
-        transactionsDao.update(transaction);
+        new UpdateTransactionsAsyncTask(transactionsDao).execute(transaction);
     }
 
     public void delete(TransactionsEntity transaction) {
-        transactionsDao.delete(transaction);
+        new DeleteTransactionsAsyncTask(transactionsDao).execute(transaction);
     }
 
     public void deleteAll() {
-        transactionsDao.deleteAllTransactions();
+        new DeleteAllTransactionssAsyncTask(transactionsDao).execute();
     }
 
     public LiveData<List<TransactionsEntity>> getAllTransactions() {
         return allTransactions;
+    }
+
+
+    //Async classes
+    private static class InsertTransactionsAsyncTask extends AsyncTask<TransactionsEntity, Void, Void> {
+        private TransactionsDao transactionsDao;
+        private InsertTransactionsAsyncTask(TransactionsDao transactionsDao) {
+            this.transactionsDao = transactionsDao;
+        }
+        @Override
+        protected Void doInBackground(TransactionsEntity... transactions) {
+            transactionsDao.insert(transactions[0]);
+            return null;
+        }
+    }
+    private static class UpdateTransactionsAsyncTask extends AsyncTask<TransactionsEntity, Void, Void> {
+        private TransactionsDao transactionsDao;
+        private UpdateTransactionsAsyncTask(TransactionsDao transactionsDao) {
+            this.transactionsDao = transactionsDao;
+        }
+        @Override
+        protected Void doInBackground(TransactionsEntity... transactions) {
+            transactionsDao.update(transactions[0]);
+            return null;
+        }
+    }
+    private static class DeleteTransactionsAsyncTask extends AsyncTask<TransactionsEntity, Void, Void> {
+        private TransactionsDao transactionsDao;
+        private DeleteTransactionsAsyncTask(TransactionsDao transactionsDao) {
+            this.transactionsDao = transactionsDao;
+        }
+        @Override
+        protected Void doInBackground(TransactionsEntity... transactions) {
+            transactionsDao.delete(transactions[0]);
+            return null;
+        }
+    }
+    private static class DeleteAllTransactionssAsyncTask extends AsyncTask<Void, Void, Void> {
+        private TransactionsDao transactionsDao;
+        private DeleteAllTransactionssAsyncTask(TransactionsDao transactionsDao) {
+            this.transactionsDao = transactionsDao;
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            transactionsDao.deleteAllTransactions();
+            return null;
+        }
     }
 }

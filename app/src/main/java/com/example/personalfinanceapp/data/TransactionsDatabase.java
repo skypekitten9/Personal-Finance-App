@@ -1,6 +1,7 @@
 package com.example.personalfinanceapp.data;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -11,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.time.LocalDate;
 
 
-@Database(entities = {TransactionsEntity.class}, version = 1)
+@Database(entities = {TransactionsEntity.class}, version = 2)
 public abstract class TransactionsDatabase extends RoomDatabase {
     private static TransactionsDatabase instance;
     public abstract TransactionsDao transactionsDao();
@@ -31,20 +32,32 @@ public abstract class TransactionsDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            instance.transactionsDao().insert(new TransactionsEntity(
+            new PopulateDbAsyncTask(instance).execute();
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+        private TransactionsDao transactionsDao;
+        private PopulateDbAsyncTask(TransactionsDatabase db) {
+            transactionsDao = db.transactionsDao();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            transactionsDao.insert(new TransactionsEntity(
                     "Victor",
                     "2020-02-02",
                     "McDonalds",
-                    -300,
+                    300,
                     false
             ));
-            instance.transactionsDao().insert(new TransactionsEntity(
+            transactionsDao.insert(new TransactionsEntity(
                     "Roy",
                     "2019-09-09",
                     "Coop Mårtenstorget",
-                    -100,
+                    100,
                     false
             ));
+            return null;
         }
-    };
+    }
 }
