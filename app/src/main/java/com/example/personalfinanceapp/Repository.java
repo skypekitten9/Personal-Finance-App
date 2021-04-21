@@ -11,11 +11,11 @@ import com.example.personalfinanceapp.data.TransactionsEntity;
 
 import java.util.List;
 
-public class Model {
+public class Repository {
     private TransactionsDao transactionsDao;
     private LiveData<List<TransactionsEntity>> allTransactions;
 
-    public Model(Application application) {
+    public Repository(Application application) {
         TransactionsDatabase database = TransactionsDatabase.getInstance(application);
         transactionsDao = database.transactionsDao();
         allTransactions = transactionsDao.getAllTransactions();

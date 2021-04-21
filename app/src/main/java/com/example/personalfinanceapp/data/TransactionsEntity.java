@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 import java.sql.Date;
 
 
+
 @Entity(tableName = "transactions")
 public class TransactionsEntity {
 
@@ -15,13 +16,15 @@ public class TransactionsEntity {
     private String userName;
     private String date;
     private String title;
+    private int category;
     private float amount;
     private boolean income;
 
-    public TransactionsEntity(String userName, String date, String title, float amount, boolean income) {
+    public TransactionsEntity(String userName, String date, String title, int category, float amount, boolean income) {
         this.userName = userName;
         this.date = date;
         this.title = title;
+        this.category = category;
         this.amount = amount;
         this.income = income;
     }
@@ -42,6 +45,10 @@ public class TransactionsEntity {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getCategory() {
+        return category;
     }
 
     public float getAmount() {

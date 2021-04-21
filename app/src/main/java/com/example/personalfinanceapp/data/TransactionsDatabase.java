@@ -9,10 +9,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.time.LocalDate;
+import com.example.personalfinanceapp.Controller;
 
 
-@Database(entities = {TransactionsEntity.class}, version = 2)
+@Database(entities = {TransactionsEntity.class}, version = 3)
 public abstract class TransactionsDatabase extends RoomDatabase {
     private static TransactionsDatabase instance;
     public abstract TransactionsDao transactionsDao();
@@ -48,6 +48,7 @@ public abstract class TransactionsDatabase extends RoomDatabase {
                     "Victor",
                     "2020-02-02",
                     "McDonalds",
+                    Controller.TransactionCategory.Food.ordinal(),
                     300,
                     false
             ));
@@ -55,6 +56,7 @@ public abstract class TransactionsDatabase extends RoomDatabase {
                     "Roy",
                     "2019-09-09",
                     "Coop Mårtenstorget",
+                    Controller.TransactionCategory.Household.ordinal(),
                     100,
                     false
             ));
