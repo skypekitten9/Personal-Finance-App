@@ -1,12 +1,14 @@
 package com.example.personalfinanceapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.personalfinanceapp.data.TransactionsEntity;
@@ -30,6 +32,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         holder.titleView.setText(transaction.getTitle());
         holder.amountView.setText(String.valueOf(transaction.getAmount()));
         holder.dateView.setText(transaction.getDate());
+        if(holder.expanded) holder.expandableLayout.setVisibility(View.VISIBLE);
+        else holder.expandableLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -45,13 +49,27 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     class TransactionViewHolder extends RecyclerView.ViewHolder {
         int id;
         TextView titleView, amountView, dateView;
+        boolean expanded;
+        ConstraintLayout expandableLayout;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.titleView);
             amountView = itemView.findViewById(R.id.amountView);
             dateView = itemView.findViewById(R.id.dateView);
+            expandableLayout = itemView.findViewById(R.id.expandlableLayout);
             id = 0;
+            expanded = false;
+
+            titleView.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    expanded = !expanded;
+                    notifyDataSetChanged();
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
     }
 }
