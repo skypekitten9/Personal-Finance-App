@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.personalfinanceapp.data.TransactionsEntity;
@@ -38,5 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setTransactions(transactionsEntities);
             }
         });
+
+        Intent intent = new Intent(this, LaunchActivity.class);
+        startActivity(intent);
     }
 }

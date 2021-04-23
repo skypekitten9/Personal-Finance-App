@@ -3,4 +3,7 @@
     <string name="appTitle">Frisbee Dog Finance</string>
     <string name="login">Login</string>
     <string name="createAccount">Create Account</string>
+    <string name="launchDescription">This is your first time using the app, please fill out the required forms to proceed.</string>
+    <string name="firstName">Type your first name here...</string>
+    <string name="surName">Type your surname here...</string>
 </resources>
