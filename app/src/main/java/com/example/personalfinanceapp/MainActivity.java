@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initialize controller
+        Controller.InitializeController(this);
+        Controller.Instance().Begin();
 
         RecyclerView recyclerView = findViewById(R.id.transactionRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -40,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void CreateAccountForm()
+    {
         Intent intent = new Intent(this, LaunchActivity.class);
         startActivity(intent);
     }

@@ -26,12 +26,15 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         return new TransactionViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         TransactionsEntity transaction = transactions.get(position);
         holder.titleView.setText(transaction.getTitle());
         holder.amountView.setText(String.valueOf(transaction.getAmount()));
         holder.dateView.setText(transaction.getDate());
+        holder.position = position;
+
         if(holder.expanded) holder.expandableLayout.setVisibility(View.VISIBLE);
         else holder.expandableLayout.setVisibility(View.GONE);
     }
@@ -46,8 +49,10 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         notifyDataSetChanged();
     }
 
+
+
     class TransactionViewHolder extends RecyclerView.ViewHolder {
-        int id;
+        int position;
         TextView titleView, amountView, dateView;
         boolean expanded;
         ConstraintLayout expandableLayout;
@@ -58,7 +63,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             amountView = itemView.findViewById(R.id.amountView);
             dateView = itemView.findViewById(R.id.dateView);
             expandableLayout = itemView.findViewById(R.id.expandlableLayout);
-            id = 0;
             expanded = false;
 
             titleView.setOnClickListener(new View.OnClickListener(){
