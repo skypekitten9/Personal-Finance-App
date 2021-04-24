@@ -13,15 +13,13 @@ public class TransactionsEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private String userName;
     private String date;
     private String title;
     private int category;
-    private float amount;
+    private int amount;
     private boolean income;
 
-    public TransactionsEntity(String userName, String date, String title, int category, float amount, boolean income) {
-        this.userName = userName;
+    public TransactionsEntity(String date, String title, int category, int amount, boolean income) {
         this.date = date;
         this.title = title;
         this.category = category;
@@ -35,10 +33,6 @@ public class TransactionsEntity {
 
     public int getId() { return id; }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public String getDate() {
         return date;
     }
@@ -51,7 +45,7 @@ public class TransactionsEntity {
         return category;
     }
 
-    public float getAmount() {
+    public int getAmount() {
         return amount;
     }
 

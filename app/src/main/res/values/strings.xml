@@ -6,4 +6,8 @@
     <string name="launchDescription">This is your first time using the app, please fill out the required forms to proceed.</string>
     <string name="firstName">Type your first name here...</string>
     <string name="surName">Type your surname here...</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="amount">Amount</string>
+    <string name="income">Income</string>
 </resources>

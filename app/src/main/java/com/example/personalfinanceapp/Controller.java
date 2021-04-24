@@ -4,14 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.example.personalfinanceapp.data.TransactionsEntity;
+
 public class Controller {
 
     public enum TransactionCategory
     {
         Food,
-        Transportation,
-        Household,
-        Entertainment,
+        Leisure,
+        Travel,
+        Accommodation,
+        Salery,
         Other
     }
 
@@ -49,6 +52,11 @@ public class Controller {
         else{
             ma.CreateAccountForm();
         }
+    }
+
+    public void AddTransaction(String title, String date, int amount, Controller.TransactionCategory category, boolean income)
+    {
+        ma.AddTransaction(title, date, amount, category, income);
     }
 
     public boolean DoesAccountExist()
@@ -93,7 +101,7 @@ public class Controller {
 
     public boolean IsNameValid(String name)
     {
-        return !(name.isEmpty() || name == null || name.length() > 20);
+        return !(name.trim().isEmpty() || name == null || name.length() > 20);
     }
 
 }

@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.personalfinanceapp.Controller;
 
 
-@Database(entities = {TransactionsEntity.class}, version = 3)
+@Database(entities = {TransactionsEntity.class}, version = 4)
 public abstract class TransactionsDatabase extends RoomDatabase {
     private static TransactionsDatabase instance;
     public abstract TransactionsDao transactionsDao();
@@ -45,7 +45,6 @@ public abstract class TransactionsDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             transactionsDao.insert(new TransactionsEntity(
-                    "Victor",
                     "2020-02-02",
                     "McDonalds",
                     Controller.TransactionCategory.Food.ordinal(),
@@ -53,12 +52,18 @@ public abstract class TransactionsDatabase extends RoomDatabase {
                     false
             ));
             transactionsDao.insert(new TransactionsEntity(
-                    "Roy",
                     "2019-09-09",
                     "Coop Mårtenstorget",
-                    Controller.TransactionCategory.Household.ordinal(),
+                    Controller.TransactionCategory.Food.ordinal(),
                     100,
                     false
+            ));
+            transactionsDao.insert(new TransactionsEntity(
+                    "2019-09-25",
+                    "Malmo Stad",
+                    Controller.TransactionCategory.Salery.ordinal(),
+                    2000,
+                    true
             ));
             return null;
         }
