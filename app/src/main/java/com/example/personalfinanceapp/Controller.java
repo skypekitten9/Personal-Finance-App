@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.example.personalfinanceapp.data.TransactionsEntity;
 
+import java.util.Hashtable;
+
 public class Controller {
 
     public enum TransactionCategory
@@ -21,6 +23,7 @@ public class Controller {
     private String firstName, surName;
     private static Controller instance;
     private MainActivity ma;
+    private Hashtable<String, Boolean> expandedHashTable = new Hashtable<String, Boolean>();
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String FIRST_NAME = "firstName";
@@ -109,4 +112,14 @@ public class Controller {
         return !(name.trim().isEmpty() || name == null || name.length() > 20);
     }
 
+    public void SetExpandable(String transactionID, boolean value)
+    {
+        expandedHashTable.put(transactionID, value);
+    }
+
+    public boolean GetExpandable(String transactionID)
+    {
+        if(expandedHashTable.get(transactionID) == null) return false;
+        else return expandedHashTable.get(transactionID);
+    }
 }
