@@ -59,6 +59,11 @@ public class Controller {
         ma.AddTransaction(title, date, amount, category, income);
     }
 
+    public void DeleteTransaction(TransactionsEntity transaction)
+    {
+        ma.DeleteTransaction(transaction);
+    }
+
     public boolean DoesAccountExist()
     {
         SharedPreferences sharedPreferences = ma.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);

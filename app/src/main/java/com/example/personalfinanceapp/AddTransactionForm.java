@@ -9,15 +9,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.Toast;
 
 public class AddTransactionForm extends AppCompatActivity {
 
-    EditText editTextTitle;
+    EditText editTextTitle, editTextAmount;
     DatePicker datePicker;
-    NumberPicker amountPicker;
     Switch incomeSwitch;
 
     @Override
@@ -27,11 +25,9 @@ public class AddTransactionForm extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.editTextTitle);
         datePicker = findViewById(R.id.datePicker);
-        amountPicker = findViewById(R.id.numberPicker);
+        editTextAmount = findViewById(R.id.editTextAmount);
         incomeSwitch = findViewById(R.id.incomeSwitch);
 
-        amountPicker.setMinValue(1);
-        amountPicker.setMaxValue(100000);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("New Transaction");
@@ -41,7 +37,7 @@ public class AddTransactionForm extends AppCompatActivity {
     {
         String title = editTextTitle.getText().toString();
         String date = String.valueOf(datePicker.getYear()) + "-" + String.valueOf(datePicker.getMonth()) + "-" + String.valueOf(datePicker.getDayOfMonth());
-        int amount = amountPicker.getValue();
+        int amount = Integer.parseInt(editTextAmount.getText().toString());
 
         if(title.trim().isEmpty() || title.trim().isEmpty()){
             Toast.makeText(this, "One ore more fields are INVALID", Toast.LENGTH_SHORT).show();

@@ -71,4 +71,9 @@ public class MainActivity extends AppCompatActivity {
         transactionsViewModel.insert(transaction);
         Toast.makeText(this, "Transaction added!", Toast.LENGTH_SHORT).show();
     }
+
+    public void DeleteTransaction(TransactionsEntity transaction)
+    {
+        transactionsViewModel.delete(transaction);
+    }
 }

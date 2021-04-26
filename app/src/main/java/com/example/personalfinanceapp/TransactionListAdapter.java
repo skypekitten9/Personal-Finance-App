@@ -69,7 +69,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
                 @Override
                 public void onClick(View v) {
-                    expanded = !expanded;
+                    expanded = true;
                     notifyDataSetChanged();
                     notifyItemChanged(getAdapterPosition());
                 }
