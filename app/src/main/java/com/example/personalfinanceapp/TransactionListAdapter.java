@@ -37,8 +37,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         holder.dateView.setText(transaction.getDate());
         holder.position = position;
 
-        if (transaction.isIncome()) holder.amountView.setText(String.valueOf(transaction.getAmount() * -1));
-        else holder.amountView.setText(String.valueOf(transaction.getAmount()));
+        if (transaction.isIncome()) holder.amountView.setText(String.valueOf(transaction.getAmount()));
+        else holder.amountView.setText(String.valueOf(transaction.getAmount() * -1));
 
         if(Controller.Instance().GetExpandable(holder.transactionID)) holder.expandableLayout.setVisibility(View.VISIBLE);
         else holder.expandableLayout.setVisibility(View.GONE);
