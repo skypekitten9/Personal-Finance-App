@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TransactionsViewModel extends AndroidViewModel {
     private Repository repository;
-    private LiveData<List<TransactionsEntity>> allTransactions;
+    private LiveData<List<TransactionsEntity>> allTransactions, incomes, expenditures;
 
     public TransactionsViewModel(@NonNull Application application) {
         super(application);
