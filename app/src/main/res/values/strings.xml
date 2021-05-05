@@ -11,4 +11,19 @@
     <string name="amount">Amount</string>
     <string name="income">Income</string>
     <string name="hide">Hide</string>
+
+    <string-array name="expenditureTypes">
+        <item>Food</item>
+        <item>Leisure</item>
+        <item>Travel</item>
+        <item>Accommodation</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="incomeTypes">
+        <item>Salery</item>
+        <item>Other</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
