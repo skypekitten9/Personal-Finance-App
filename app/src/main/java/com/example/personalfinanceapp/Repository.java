@@ -13,12 +13,14 @@ import java.util.List;
 
 public class Repository {
     private TransactionsDao transactionsDao;
-    private LiveData<List<TransactionsEntity>> allTransactions;
+    private LiveData<List<TransactionsEntity>> allTransactions, allIncome, allExpenditure;
 
     public Repository(Application application) {
         TransactionsDatabase database = TransactionsDatabase.getInstance(application);
         transactionsDao = database.transactionsDao();
         allTransactions = transactionsDao.getAllTransactions();
+        allIncome = transactionsDao.getAllIncome();
+        allExpenditure = transactionsDao.getAllExpenditure();
     }
 
     public void insert(TransactionsEntity transaction) {
@@ -40,6 +42,15 @@ public class Repository {
     public LiveData<List<TransactionsEntity>> getAllTransactions() {
         return allTransactions;
     }
+
+    public LiveData<List<TransactionsEntity>> getAllIncome() {
+        return allIncome;
+    }
+
+    public LiveData<List<TransactionsEntity>> getAllExpenditure() {
+        return allExpenditure;
+    }
+
 
 
     //Async classes

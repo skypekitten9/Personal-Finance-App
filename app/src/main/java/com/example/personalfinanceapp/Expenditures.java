@@ -78,7 +78,7 @@ public class Expenditures extends Fragment {
         recyclerView.setAdapter(adapter);
 
         //Set live data to list
-        Controller.Instance().GetTransactionsViewModel().getAllTransactions().observe(getActivity(), new Observer<List<TransactionsEntity>>() {
+        Controller.Instance().GetTransactionsViewModel().getAllExpenditure().observe(getActivity(), new Observer<List<TransactionsEntity>>() {
             @Override
             public void onChanged(@Nullable List<TransactionsEntity> transactionsEntities) {
                 adapter.setTransactions(transactionsEntities);

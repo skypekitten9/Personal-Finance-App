@@ -26,4 +26,10 @@ public interface TransactionsDao {
 
     @Query("SELECT * FROM transactions ORDER BY date DESC")
     LiveData<List<TransactionsEntity>> getAllTransactions();
+
+    @Query("SELECT * FROM transactions WHERE income = 1 ORDER BY date DESC")
+    LiveData<List<TransactionsEntity>> getAllIncome();
+
+    @Query("SELECT * FROM transactions WHERE income = 0 ORDER BY date DESC")
+    LiveData<List<TransactionsEntity>> getAllExpenditure();
 }

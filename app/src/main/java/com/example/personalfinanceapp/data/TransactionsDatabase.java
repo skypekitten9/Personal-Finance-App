@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.personalfinanceapp.Controller;
 
 
-@Database(entities = {TransactionsEntity.class}, version = 4)
+@Database(entities = {TransactionsEntity.class}, version = 5)
 public abstract class TransactionsDatabase extends RoomDatabase {
     private static TransactionsDatabase instance;
     public abstract TransactionsDao transactionsDao();
@@ -33,7 +33,7 @@ public abstract class TransactionsDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
+            //new PopulateDbAsyncTask(instance).execute();
         }
     };
 

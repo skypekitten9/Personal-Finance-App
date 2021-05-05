@@ -12,12 +12,14 @@ import java.util.List;
 
 public class TransactionsViewModel extends AndroidViewModel {
     private Repository repository;
-    private LiveData<List<TransactionsEntity>> allTransactions, incomes, expenditures;
+    private LiveData<List<TransactionsEntity>> allTransactions, allIncome, allExpenditure;
 
     public TransactionsViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
         allTransactions = repository.getAllTransactions();
+        allIncome = repository.getAllIncome();
+        allExpenditure = repository.getAllExpenditure();
     }
 
     public void insert(TransactionsEntity transaction) {
@@ -40,5 +42,15 @@ public class TransactionsViewModel extends AndroidViewModel {
     public LiveData<List<TransactionsEntity>> getAllTransactions()
     {
         return allTransactions;
+    }
+
+    public LiveData<List<TransactionsEntity>> getAllIncome()
+    {
+        return allIncome;
+    }
+
+    public LiveData<List<TransactionsEntity>> getAllExpenditure()
+    {
+        return allExpenditure;
     }
 }
