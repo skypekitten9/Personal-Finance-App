@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.Toast;
 
 import com.example.personalfinanceapp.data.TransactionsEntity;
@@ -50,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddTransactionForm.class);
+                startActivity(intent);
+            }
+        });
+
+        //Setup filter button
+        FloatingActionButton filterActionButton = findViewById(R.id.filterbutton);
+        filterActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FilterTransactions.class);
                 startActivity(intent);
             }
         });
