@@ -122,4 +122,9 @@ public class Controller {
         if(expandedHashTable.get(transactionID) == null) return false;
         else return expandedHashTable.get(transactionID);
     }
+
+    public TransactionsViewModel GetTransactionsViewModel()
+    {
+        return ma.GetTransactionsViewModel();
+    }
 }

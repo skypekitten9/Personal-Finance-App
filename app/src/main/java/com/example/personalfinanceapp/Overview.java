@@ -24,8 +24,6 @@ import java.util.List;
  */
 public class Overview extends Fragment {
 
-    private TransactionsViewModel transactionsViewModel;
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,8 +80,7 @@ public class Overview extends Fragment {
         recyclerView.setAdapter(adapter);
 
         //Set live data to list
-        transactionsViewModel = new ViewModelProvider(getActivity(), ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(TransactionsViewModel.class);
-        transactionsViewModel.getAllTransactions().observe(getActivity(), new Observer<List<TransactionsEntity>>() {
+        Controller.Instance().GetTransactionsViewModel().getAllTransactions().observe(getActivity(), new Observer<List<TransactionsEntity>>() {
             @Override
             public void onChanged(@Nullable List<TransactionsEntity> transactionsEntities) {
                 adapter.setTransactions(transactionsEntities);

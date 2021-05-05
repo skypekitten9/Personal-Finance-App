@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
 
+    private TransactionsViewModel transactionsViewModel;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initialize controller
+        transactionsViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(TransactionsViewModel.class);
         Controller.InitializeController(this);
         Controller.Instance().Begin();
 
@@ -71,12 +76,17 @@ public class MainActivity extends AppCompatActivity {
     public void AddTransaction(String title, String date, int amount, Controller.TransactionCategory category, boolean income)
     {
         TransactionsEntity transaction = new TransactionsEntity(date, title, category.ordinal(), amount, income);
-        //transactionsViewModel.insert(transaction);
+        transactionsViewModel.insert(transaction);
         Toast.makeText(this, "Transaction added!", Toast.LENGTH_SHORT).show();
     }
 
     public void DeleteTransaction(TransactionsEntity transaction)
     {
-        //transactionsViewModel.delete(transaction);
+        transactionsViewModel.delete(transaction);
+    }
+
+    public TransactionsViewModel GetTransactionsViewModel()
+    {
+        return transactionsViewModel;
     }
 }
