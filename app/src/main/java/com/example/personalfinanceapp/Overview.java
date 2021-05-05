@@ -2,11 +2,20 @@ package com.example.personalfinanceapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.personalfinanceapp.data.TransactionsEntity;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +23,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Overview extends Fragment {
+
+    private TransactionsViewModel transactionsViewModel;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +71,25 @@ public class Overview extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview, container, false);
+        View view = inflater.inflate(R.layout.fragment_overview, container, false);
+
+        //Setup list and adapter
+        RecyclerView recyclerView = view.findViewById(R.id.transactionRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        final TransactionListAdapter adapter = new TransactionListAdapter();
+        recyclerView.setAdapter(adapter);
+
+        //Set live data to list
+        transactionsViewModel = new ViewModelProvider(getActivity(), ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(TransactionsViewModel.class);
+        transactionsViewModel.getAllTransactions().observe(getActivity(), new Observer<List<TransactionsEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<TransactionsEntity> transactionsEntities) {
+                adapter.setTransactions(transactionsEntities);
+            }
+        });
+
+        return view;
     }
 }

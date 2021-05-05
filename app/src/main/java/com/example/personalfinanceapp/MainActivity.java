@@ -24,7 +24,6 @@ import java.util.List;
 import static androidx.fragment.app.FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity {
-    private TransactionsViewModel transactionsViewModel;
 
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
@@ -39,22 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Controller.InitializeController(this);
         Controller.Instance().Begin();
 
-        //Setup list and adapter
-        RecyclerView recyclerView = findViewById(R.id.transactionRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        final TransactionListAdapter adapter = new TransactionListAdapter();
-        recyclerView.setAdapter(adapter);
-
-        //Set live data to list
-        transactionsViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(TransactionsViewModel.class);
-        transactionsViewModel.getAllTransactions().observe(this, new Observer<List<TransactionsEntity>>() {
-            @Override
-            public void onChanged(@Nullable List<TransactionsEntity> transactionsEntities) {
-                adapter.setTransactions(transactionsEntities);
-            }
-        });
 
         //Setup new transaction button
         FloatingActionButton floatingActionButton = findViewById(R.id.newTransactionButton);
@@ -88,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
     public void AddTransaction(String title, String date, int amount, Controller.TransactionCategory category, boolean income)
     {
         TransactionsEntity transaction = new TransactionsEntity(date, title, category.ordinal(), amount, income);
-        transactionsViewModel.insert(transaction);
+        //transactionsViewModel.insert(transaction);
         Toast.makeText(this, "Transaction added!", Toast.LENGTH_SHORT).show();
     }
 
     public void DeleteTransaction(TransactionsEntity transaction)
     {
-        transactionsViewModel.delete(transaction);
+        //transactionsViewModel.delete(transaction);
     }
 }
