@@ -18,11 +18,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/financeNameView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/expenditure"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -40,6 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:listitem="@layout/transaction_item" />
 

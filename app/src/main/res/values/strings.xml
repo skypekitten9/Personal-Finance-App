@@ -9,7 +9,7 @@
     <string name="title">Title</string>
     <string name="date">Date</string>
     <string name="amount">Amount</string>
-    <string name="income">Income</string>
+    <string name="income">Income:</string>
     <string name="hide">Hide</string>
 
     <string-array name="expenditureTypes">
@@ -26,6 +26,8 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="expenditure">Expenditure</string>
-    <string name="transactions">Transactions</string>
+    <string name="expenditure">Expenditure:</string>
+    <string name="transactions">Transactions:</string>
+    <string name="totalExpenditure">Total expenditure:</string>
+    <string name="revenue">Revenue:</string>
 </resources>
