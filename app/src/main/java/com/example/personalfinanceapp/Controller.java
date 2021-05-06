@@ -24,6 +24,8 @@ public class Controller {
     private static Controller instance;
     private MainActivity ma;
     private Hashtable<String, Boolean> expandedHashTable = new Hashtable<String, Boolean>();
+    private String dateFilterFrom = "1000-1-1";
+    private String dateFilterTo = "3000-3-3";
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String FIRST_NAME = "firstName";
@@ -57,9 +59,76 @@ public class Controller {
         }
     }
 
+    public void FilterDates(String fromDate, String toDate)
+    {
+        dateFilterFrom = fromDate;
+        dateFilterTo = toDate;
+        ma.Refresh();
+    }
+
+    public boolean IsDateInFilter(int year, int month, int day)
+    {
+        if(year < GetYearFrom() || year > GetYearTo()) return false;
+        if(year == GetYearFrom())
+        {
+            if(month < GetMonthFrom()) return false;
+            if(month == GetMonthFrom())
+            {
+                if(day < GetDayFrom()) return false;
+            }
+        }
+
+        if(year == GetYearTo())
+        {
+            if(month > GetMonthTo()) return false;
+            if(month == GetMonthTo())
+            {
+                if(day > GetDayTo()) return false;
+            }
+        }
+        return true;
+    }
+
+    public int GetYearFrom()
+    {
+        String[] date = dateFilterFrom.split("-");
+        return Integer.parseInt(date[0]);
+    }
+
+    public int GetMonthFrom()
+    {
+        String[] date = dateFilterFrom.split("-");
+        return Integer.parseInt(date[1]);
+    }
+
+    public int GetDayFrom()
+    {
+        String[] date = dateFilterFrom.split("-");
+        return Integer.parseInt(date[2]);
+    }
+
+    public int GetYearTo()
+    {
+        String[] date = dateFilterTo.split("-");
+        return Integer.parseInt(date[0]);
+    }
+
+    public int GetMonthTo()
+    {
+        String[] date = dateFilterTo.split("-");
+        return Integer.parseInt(date[1]);
+    }
+
+    public int GetDayTo()
+    {
+        String[] date = dateFilterTo.split("-");
+        return Integer.parseInt(date[2]);
+    }
+
     public void AddTransaction(String title, String date, int amount, Controller.TransactionCategory category, boolean income)
     {
         ma.AddTransaction(title, date, amount, category, income);
+        ma.ToastString("Transaction added!");
     }
 
     public void DeleteTransaction(TransactionsEntity transaction)

@@ -1,7 +1,5 @@
 package com.example.personalfinanceapp;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +35,28 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         holder.dateView.setText(transaction.getDate());
         holder.position = position;
 
+        //Check if it's within filtered date
+        String[] date = transaction.getDate().split("-");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+        if(Controller.Instance().IsDateInFilter(year, month, day))
+        {
+            holder.itemConstraint.setVisibility(View.VISIBLE);
+            //holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        else
+        {
+            holder.itemConstraint.setVisibility(View.GONE);
+            //holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+            return;
+        }
+
+        //Check if its an income
         if (transaction.isIncome()) holder.amountView.setText(String.valueOf(transaction.getAmount()));
         else holder.amountView.setText(String.valueOf(transaction.getAmount() * -1));
 
+        //Check if its been expanded
         if(Controller.Instance().GetExpandable(holder.transactionID)) holder.expandableLayout.setVisibility(View.VISIBLE);
         else holder.expandableLayout.setVisibility(View.GONE);
     }
@@ -63,7 +80,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         TextView titleView, amountView, dateView;
         Button removeButton, hideButton;
         boolean expanded;
-        ConstraintLayout expandableLayout;
+        ConstraintLayout expandableLayout, itemConstraint;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +90,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             hideButton = itemView.findViewById(R.id.hideButton);
             removeButton = itemView.findViewById(R.id.removeButton);
             expandableLayout = itemView.findViewById(R.id.expandlableLayout);
+            itemConstraint = itemView.findViewById((R.id.entireItemView));
             expanded = false;
 
             removeButton.setOnClickListener(new View.OnClickListener() {

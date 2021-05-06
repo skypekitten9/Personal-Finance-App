@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.personalfinanceapp.data.TransactionsEntity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
+    private List<Fragment> fragmentList;
+    private Overview overview;
+    private Income income;
+    private Expenditures expenditures;
 
     private TransactionsViewModel transactionsViewModel;
 
@@ -67,10 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Setup pager adapter
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new Overview());
-        fragmentList.add(new Expenditures());
-        fragmentList.add(new Income());
+        overview = new Overview();
+        expenditures = new Expenditures();
+        income = new Income();
+
+        fragmentList = new ArrayList<>();
+        fragmentList.add(overview);
+        fragmentList.add(expenditures);
+        fragmentList.add(income);
 
         viewPager = findViewById(R.id.fragmentPager);
         pagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragmentList);
@@ -88,12 +97,22 @@ public class MainActivity extends AppCompatActivity {
     {
         TransactionsEntity transaction = new TransactionsEntity(date, title, category.ordinal(), amount, income);
         transactionsViewModel.insert(transaction);
-        Toast.makeText(this, "Transaction added!", Toast.LENGTH_SHORT).show();
+    }
+    public void ToastString(String message)
+    {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
     }
 
     public void DeleteTransaction(TransactionsEntity transaction)
     {
         transactionsViewModel.delete(transaction);
+    }
+
+    public void Refresh(){
+        AddTransaction("temp", "0-0-0", 0, Controller.TransactionCategory.Other, false);
+        TransactionsEntity transacionTemp = new TransactionsEntity("0-0-0", "temp", Controller.TransactionCategory.Other.ordinal(), 0, false);
+        DeleteTransaction(transacionTemp);
     }
 
     public TransactionsViewModel GetTransactionsViewModel()

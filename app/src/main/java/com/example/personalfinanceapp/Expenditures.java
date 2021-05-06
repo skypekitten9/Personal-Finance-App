@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class Expenditures extends Fragment {
 
+    private RecyclerView recyclerView;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,7 +72,7 @@ public class Expenditures extends Fragment {
         View view = inflater.inflate(R.layout.fragment_expenditures, container, false);
 
         //Setup list and adapter
-        RecyclerView recyclerView = view.findViewById(R.id.expenditureRecyclerView);
+        recyclerView = view.findViewById(R.id.expenditureRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
@@ -86,5 +88,10 @@ public class Expenditures extends Fragment {
         });
 
         return view;
+    }
+
+    public void Refresh()
+    {
+        //recyclerView.performClick();
     }
 }

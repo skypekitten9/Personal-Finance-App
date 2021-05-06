@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 public class FilterTransactions extends AppCompatActivity {
     private DatePicker dateFrom, dateTo;
@@ -21,11 +22,33 @@ public class FilterTransactions extends AppCompatActivity {
         dateTo = findViewById(R.id.dateAfter);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Filter transactions");
+        setTitle("Filter between dates");
     }
 
     private void filterTransactions() {
+
+        if(dateFrom.getYear() > dateTo.getYear())
+        {
+            Toast.makeText(this, "Picked dates are invalid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(dateFrom.getYear() == dateTo.getYear() && dateFrom.getMonth() > dateTo.getMonth())
+        {
+            Toast.makeText(this, "Picked dates are invalid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(dateFrom.getYear() == dateTo.getYear() && dateFrom.getMonth() == dateTo.getMonth() && dateFrom.getDayOfMonth() > dateTo.getDayOfMonth())
+        {
+            Toast.makeText(this, "Picked dates are invalid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String from = String.valueOf(dateFrom.getYear()) + "-" + String.valueOf(dateFrom.getMonth()) + "-" + String.valueOf(dateFrom.getDayOfMonth());
+        String to = String.valueOf(dateTo.getYear()) + "-" + String.valueOf(dateTo.getMonth()) + "-" + String.valueOf(dateTo.getDayOfMonth());
+
+
         finish();
+        Controller.Instance().FilterDates(from, to);
     }
 
     @Override
