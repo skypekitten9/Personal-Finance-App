@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,6 +66,35 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         //Check if its been expanded
         if(Controller.Instance().GetExpandable(holder.transactionID + listUniqueString)) holder.expandableLayout.setVisibility(View.VISIBLE);
         else holder.expandableLayout.setVisibility(View.GONE);
+
+        //Set icon
+        Controller.TransactionCategory category = Controller.TransactionCategory.values()[transaction.getCategory()];
+        switch (category) {
+            case Food:
+                holder.catagoryView.setText("Food");
+                holder.imageView.setImageResource(R.drawable.ic_food);
+                break;
+            case Leisure:
+                holder.catagoryView.setText("Leisure");
+                holder.imageView.setImageResource(R.drawable.ic_leisure);
+                break;
+            case Travel:
+                holder.catagoryView.setText("Travel");
+                holder.imageView.setImageResource(R.drawable.ic_baseline_directions_bus_24);
+                break;
+            case Accommodation:
+                holder.catagoryView.setText("Accomodation");
+                holder.imageView.setImageResource(R.drawable.ic_baseline_house_24);
+                break;
+            case Salery:
+                holder.catagoryView.setText("Salery");
+                holder.imageView.setImageResource(R.drawable.ic_salary);
+                break;
+            case Other:
+                holder.catagoryView.setText("Other");
+                holder.imageView.setImageResource(R.drawable.ic_other);
+                break;
+        }
     }
 
     @Override
@@ -83,7 +113,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         String transactionID;
         TransactionsEntity transactionInView;
         int position;
-        TextView titleView, amountView, dateView;
+        TextView titleView, amountView, dateView, catagoryView;
+        ImageView imageView;
         Button removeButton, hideButton;
         boolean expanded;
         ConstraintLayout expandableLayout, itemConstraint;
@@ -91,11 +122,13 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.titleView);
+            imageView = itemView.findViewById(R.id.imageView);
             amountView = itemView.findViewById(R.id.amountView);
             dateView = itemView.findViewById(R.id.dateView);
             hideButton = itemView.findViewById(R.id.hideButton);
             removeButton = itemView.findViewById(R.id.removeButton);
             expandableLayout = itemView.findViewById(R.id.expandlableLayout);
+            catagoryView = itemView.findViewById(R.id.catagoryView);
             itemConstraint = itemView.findViewById((R.id.entireItemView));
             expanded = false;
 
