@@ -17,6 +17,12 @@ import java.util.List;
 
 public class TransactionListAdapter extends RecyclerView.Adapter<TransactionListAdapter.TransactionViewHolder> {
     List<TransactionsEntity> transactions = new ArrayList<TransactionsEntity>();
+    String listUniqueString;
+
+    TransactionListAdapter(String listUniqueString)
+    {
+        this.listUniqueString = listUniqueString;
+    }
 
     @NonNull
     @Override
@@ -57,7 +63,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         else holder.amountView.setText(String.valueOf(transaction.getAmount() * -1));
 
         //Check if its been expanded
-        if(Controller.Instance().GetExpandable(holder.transactionID)) holder.expandableLayout.setVisibility(View.VISIBLE);
+        if(Controller.Instance().GetExpandable(holder.transactionID + listUniqueString)) holder.expandableLayout.setVisibility(View.VISIBLE);
         else holder.expandableLayout.setVisibility(View.GONE);
     }
 
@@ -103,7 +109,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             hideButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Controller.Instance().SetExpandable(transactionID, false);
+                    Controller.Instance().SetExpandable(transactionID + listUniqueString, false);
                     notifyDataSetChanged();
                 }
             });
@@ -112,7 +118,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
                 @Override
                 public void onClick(View v) {
-                    Controller.Instance().SetExpandable(transactionID, true);
+                    Controller.Instance().SetExpandable(transactionID + listUniqueString, true);
                     notifyDataSetChanged();
                 }
             });

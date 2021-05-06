@@ -77,7 +77,7 @@ public class Income extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        final TransactionListAdapter adapter = new TransactionListAdapter();
+        final TransactionListAdapter adapter = new TransactionListAdapter("C");
         recyclerView.setAdapter(adapter);
 
         //Set live data to list

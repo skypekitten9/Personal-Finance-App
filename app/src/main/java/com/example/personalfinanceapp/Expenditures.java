@@ -76,7 +76,7 @@ public class Expenditures extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        final TransactionListAdapter adapter = new TransactionListAdapter();
+        final TransactionListAdapter adapter = new TransactionListAdapter("B");
         recyclerView.setAdapter(adapter);
 
         //Set live data to list

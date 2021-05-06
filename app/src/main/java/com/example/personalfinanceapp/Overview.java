@@ -78,7 +78,7 @@ public class Overview extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        final TransactionListAdapter adapter = new TransactionListAdapter();
+        final TransactionListAdapter adapter = new TransactionListAdapter("A");
         recyclerView.setAdapter(adapter);
 
         //Set live data to list
