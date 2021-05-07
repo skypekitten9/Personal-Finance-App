@@ -26,6 +26,7 @@ public class LaunchActivity extends AppCompatActivity {
                 if(Controller.Instance().CreateAccount(firstNameText.getText().toString(), surnameText.getText().toString()))
                 {
                     finish();
+                    Controller.Instance().UpdateMainActivityInfo();
                 }
             }
         });

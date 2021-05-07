@@ -20,7 +20,8 @@ public class Controller {
         Other
     }
 
-    private String firstName, surName;
+    public String firstName = "";
+    public String surName = "";
     private static Controller instance;
     private MainActivity ma;
     private Hashtable<String, Boolean> expandedHashTable = new Hashtable<String, Boolean>();
@@ -89,6 +90,11 @@ public class Controller {
         return true;
     }
 
+    public void UpdateMainActivityInfo()
+    {
+        ma.SetFinanceInfo();
+    }
+
     public int GetYearFrom()
     {
         String[] date = dateFilterFrom.split("-");
@@ -147,7 +153,7 @@ public class Controller {
         if (IsNameValid(firstName) && IsNameValid(surname))
         {
             Toast.makeText(ma, "Account created!", Toast.LENGTH_SHORT).show();
-            SaveUser(firstName, surName);
+            SaveUser(firstName, surname);
             LoadUser();
             return true;
         }
@@ -156,6 +162,11 @@ public class Controller {
             Toast.makeText(ma, "One ore more names are INVALID", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    public void ResetMainActivity()
+    {
+        ma.Restart();
     }
 
     public void SaveUser(String firstName, String surName)
