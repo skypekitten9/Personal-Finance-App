@@ -100,12 +100,12 @@ public class AddTransactionForm extends AppCompatActivity {
     private Controller.TransactionCategory GetCategoryFromSpinner()
     {
         String selectedItem = catagorySpinner.getSelectedItem().toString();
-        if(selectedItem == "Food") return Controller.TransactionCategory.Food;
-        else if(selectedItem == "Leisure") return Controller.TransactionCategory.Leisure;
-        else if(selectedItem == "Travel") return Controller.TransactionCategory.Travel;
-        else if(selectedItem == "Accommodation") return Controller.TransactionCategory.Accommodation;
-        else if(selectedItem == "Other") return Controller.TransactionCategory.Other;
-        else if(selectedItem == "Salery") return Controller.TransactionCategory.Salery;
+        if(selectedItem.equals("Food")) return Controller.TransactionCategory.Food;
+        else if(selectedItem.equals("Leisure")) return Controller.TransactionCategory.Leisure;
+        else if(selectedItem.equals("Travel")) return Controller.TransactionCategory.Travel;
+        else if(selectedItem.equals("Accommodation")) return Controller.TransactionCategory.Accommodation;
+        else if(selectedItem.equals("Other")) return Controller.TransactionCategory.Other;
+        else if(selectedItem.equals("Salery")) return Controller.TransactionCategory.Salery;
 
 
         return Controller.TransactionCategory.Other;

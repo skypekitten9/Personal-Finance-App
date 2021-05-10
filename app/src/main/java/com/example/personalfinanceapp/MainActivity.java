@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Controller.Instance().switchActivated = false;
                 Intent intent = new Intent(MainActivity.this, AddTransactionForm.class);
                 startActivity(intent);
             }
