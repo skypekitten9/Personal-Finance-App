@@ -3,12 +3,17 @@ package com.example.personalfinanceapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -16,21 +21,63 @@ public class AddTransactionForm extends AppCompatActivity {
 
     EditText editTextTitle, editTextAmount;
     DatePicker datePicker;
+    Spinner catagorySpinner;
     Switch incomeSwitch;
 
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction_form);
 
+        //Find resources
         editTextTitle = findViewById(R.id.editTextTitle);
         datePicker = findViewById(R.id.datePicker);
         editTextAmount = findViewById(R.id.editTextAmount);
         incomeSwitch = findViewById(R.id.incomeSwitch);
+        catagorySpinner = findViewById(R.id.categorySpinner);
 
-
+        //Set menu
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("New Transaction");
+
+        //Set spinner
+        if(Controller.Instance().switchActivated)
+        {
+            //Set spinner
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.incomeTypes, R.layout.support_simple_spinner_dropdown_item);
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            catagorySpinner.setAdapter(adapter);
+        }
+        else
+        {
+            //Set spinner
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.expenditureTypes, R.layout.support_simple_spinner_dropdown_item);
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            catagorySpinner.setAdapter(adapter);
+        }
+
+        //Setup switch
+        incomeSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Controller.Instance().switchActivated = incomeSwitch.isChecked();
+                if(Controller.Instance().switchActivated)
+                {
+                    //Set spinner
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.incomeTypes, R.layout.support_simple_spinner_dropdown_item);
+                    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    catagorySpinner.setAdapter(adapter);
+                }
+                else
+                {
+                    //Set spinner
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.expenditureTypes, R.layout.support_simple_spinner_dropdown_item);
+                    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    catagorySpinner.setAdapter(adapter);
+                }
+            }
+        });
     }
 
     private void saveTransaction()
@@ -45,9 +92,23 @@ public class AddTransactionForm extends AppCompatActivity {
         }
         else
         {
-            Controller.Instance().AddTransaction(title, date, amount, Controller.TransactionCategory.Other, incomeSwitch.isChecked());
+            Controller.Instance().AddTransaction(title, date, amount, GetCategoryFromSpinner(), incomeSwitch.isChecked());
             finish();
         }
+    }
+
+    private Controller.TransactionCategory GetCategoryFromSpinner()
+    {
+        String selectedItem = catagorySpinner.getSelectedItem().toString();
+        if(selectedItem == "Food") return Controller.TransactionCategory.Food;
+        else if(selectedItem == "Leisure") return Controller.TransactionCategory.Leisure;
+        else if(selectedItem == "Travel") return Controller.TransactionCategory.Travel;
+        else if(selectedItem == "Accommodation") return Controller.TransactionCategory.Accommodation;
+        else if(selectedItem == "Other") return Controller.TransactionCategory.Other;
+        else if(selectedItem == "Salery") return Controller.TransactionCategory.Salery;
+
+
+        return Controller.TransactionCategory.Other;
     }
 
     @Override

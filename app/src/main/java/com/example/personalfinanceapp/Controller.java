@@ -20,6 +20,7 @@ public class Controller {
         Other
     }
 
+    public boolean switchActivated = false;
     public String firstName = "";
     public String surName = "";
     private static Controller instance;
